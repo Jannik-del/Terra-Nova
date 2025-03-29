@@ -141,11 +141,6 @@ class TempVoice(commands.Cog):
                 del self.voice_channels[channel_id]
                 break
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        """Überprüft, ob der Bot richtig läuft."""
-        self.log("Bot ist bereit und wartet auf Events!")
-
 def setup(client):
     """Fügt den TempVoice Cog dem Client hinzu."""
     client.add_cog(TempVoice(client))
