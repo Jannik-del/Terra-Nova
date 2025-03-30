@@ -130,7 +130,7 @@ class TicketBot(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        channel_id = 1321064896384729190  # Ticket-Channel ID anpassen
+        channel_id = 1352254182014582798  # Ticket-Channel ID anpassen
         channel = self.client.get_channel(channel_id)
 
         if channel:
@@ -147,7 +147,7 @@ class TicketBot(commands.Cog):
                         # Bestehende Nachricht bearbeiten
                         old_message = await channel.fetch_message(message_id)
                         embed = nextcord.Embed(
-                            title="Meta.Games suppe",
+                            title="Terra Nova suppe",
                             description="Bitte wähle den Typ des Tickets aus, das du erstellen möchtest.",
                             color=nextcord.Color.blue(),
                         )
@@ -159,7 +159,7 @@ class TicketBot(commands.Cog):
 
             # Wenn keine gültige Nachricht existiert, eine neue senden
             embed = nextcord.Embed(
-                title="Meta.Games suppe",
+                title="Terra Nova suppe",
                 description="Bitte wähle den Typ des Tickets aus, das du erstellen möchtest.",
                 color=nextcord.Color.blue(),
             )

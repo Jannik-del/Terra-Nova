@@ -4,7 +4,6 @@ from nextcord import interactions, application_command
 import config
 import asyncio
 import traceback
-#import openai
 from ticket_logs import save_ticket_logs
 
 
@@ -23,6 +22,7 @@ client.load_extension("voice_player")
 client.load_extension("Leave")
 client.load_extension("rules")
 client.load_extension("reload")
+client.load_extension("OpenrouterAI")
 
 
 

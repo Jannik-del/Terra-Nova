@@ -8,6 +8,7 @@ import json
 
 class TempVoice(commands.Cog):
     def __init__(self, client):
+        print("Temp voice is online.")
         self.client = client
         
         # Pfad zur Log-Datei in einem Ordner
@@ -19,7 +20,6 @@ class TempVoice(commands.Cog):
         
         self.voice_channels = {}  # Speichert temporäre Voice-Channel
         self.load_logs()
-        self.log("Tempvoice geladen.")
 
     def log(self, message: str):
         """Hilfsfunktion für Konsolenausgaben mit Timestamp."""
@@ -142,5 +142,5 @@ class TempVoice(commands.Cog):
                 break
 
 def setup(client):
-    """Fügt den TempVoice Cog dem Client hinzu."""
-    client.add_cog(TempVoice(client))
+    if client.get_cog("TempVoice") is None:
+        client.add_cog(TempVoice(client))

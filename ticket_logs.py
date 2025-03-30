@@ -13,7 +13,7 @@ os.makedirs(LOGS_DIRECTORY, exist_ok=True)
 async def save_ticket_logs(channel):
     try:
         # Nachrichten aus dem Kanal abrufen
-        messages = await channel.history(limit=100).flatten()
+        messages = [msg async for msg in channel.history(limit=100)]
         berlin_tz = pytz.timezone('Europe/Berlin')
 
         # Nachrichten in ein Dictionary formatieren
@@ -21,7 +21,7 @@ async def save_ticket_logs(channel):
             {
                 "content": msg.content,
                 "author": str(msg.author),
-                "timestamp": msg.created_at.astimezone(berlin_tz).strftime('%Y-%m-%d %H:%M:%S')
+                "timestamp": msg.created_at.astimezone(berlin_tz).strftime('%d-%m-%Y %H:%M:%S')
             }
             for msg in reversed(messages)
         ]

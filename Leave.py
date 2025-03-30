@@ -10,7 +10,7 @@ class LeaveCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.leave_messages_file = "leave_logs.json"
-        print("LeaveCog wurde geladen.")
+        print("Leave is online.")
 
     def save_leave_log(self, user_id, username, timestamp):
         """Speichert die Informationen über den Benutzer, der den Server verlassen hat."""
@@ -80,4 +80,5 @@ class LeaveCog(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(LeaveCog(bot))
+    if bot.get_cog("LeaveCog") is None:
+        bot.add_cog(LeaveCog(bot))

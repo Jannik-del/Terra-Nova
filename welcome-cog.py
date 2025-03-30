@@ -19,7 +19,8 @@ class WelcomeCog(commands.Cog):
         with open(self.message_log_file, "r") as f:
             data = json.load(f)
 
-        data[str(user_id)] = {"message_id": message_id, "timestamp": nextcord.utils.utcnow().timestamp()}
+        timestamp = nextcord.utils.utcnow().strftime('%d-%m-%Y %H:%M:%S')  # Zeitstempel im gewünschten Format
+        data[str(user_id)] = {"message_id": message_id, "timestamp": timestamp}
 
         with open(self.message_log_file, "w") as f:
             json.dump(data, f, indent=4)
