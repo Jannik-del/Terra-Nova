@@ -19,11 +19,11 @@ class TempVoice(commands.Cog):
         
         self.voice_channels = {}  # Speichert temporäre Voice-Channel
         self.load_logs()
-        self.log("TempVoice Cog ist geladen.")
+        self.log("Tempvoice geladen.")
 
     def log(self, message: str):
         """Hilfsfunktion für Konsolenausgaben mit Timestamp."""
-        timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S]")
+        timestamp = datetime.now().strftime("[%d-%m-%Y %H:%M:%S]")
         print(f"{timestamp} {message}")
 
     def load_logs(self):
@@ -76,7 +76,7 @@ class TempVoice(commands.Cog):
                 self.logs[temp_channel.id] = {
                     "channel_name": temp_channel.name,
                     "created_by": member.name,
-                    "created_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
+                    "created_at": datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S"),
                     "members": [],
                     "deleted_at": None
                 }
@@ -92,7 +92,7 @@ class TempVoice(commands.Cog):
                 self.logs[channel_id]["members"].append({
                     "user": member.name,
                     "action": "joined",
-                    "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+                    "timestamp": datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S")
                 })
                 self.save_logs()
 
@@ -103,7 +103,7 @@ class TempVoice(commands.Cog):
             self.logs[channel_id]["members"].append({
                 "user": member.name,
                 "action": "left",
-                "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+                "timestamp": datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S")
             })
             self.save_logs()
 
@@ -119,7 +119,7 @@ class TempVoice(commands.Cog):
 
                 # Aktualisiere die Logs
                 channel_id = channel.id
-                self.logs[channel_id]["deleted_at"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+                self.logs[channel_id]["deleted_at"] = datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S")
                 self.save_logs()
 
                 # Entferne den Channel aus der internen Liste
@@ -134,7 +134,7 @@ class TempVoice(commands.Cog):
 
                 # Aktualisiere die Logs
                 channel_id = channel.id
-                self.logs[channel_id]["deleted_at"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+                self.logs[channel_id]["deleted_at"] = datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S")
                 self.save_logs()
 
                 # Entferne den Channel aus der internen Liste

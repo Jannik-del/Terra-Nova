@@ -35,7 +35,7 @@ class CommandsCog(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="test", description="Nur zum Testen")
+    @nextcord.slash_command(name="test-response", description="Nur zum Testen")
     @commands.has_any_role(1352254181305618495, 1352254181305618494)
     async def test(self, interaction: nextcord.Interaction):
         embed = nextcord.Embed(title="Test erfolgreich")

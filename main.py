@@ -36,7 +36,7 @@ class selfroles(nextcord.ui.View):
         # buttons
         community = nextcord.ui.Button(label="Community", style=nextcord.ButtonStyle.blurple, emoji="👥", row=0)
         giveaway = nextcord.ui.Button(label="Giveaway", style=nextcord.ButtonStyle.blurple, emoji="🎉", row=1)
-        technik = nextcord.ui.Button(label="Entwicklung", style=nextcord.ButtonStyle.blurple, emoji="☎️", row=1)
+        technik = nextcord.ui.Button(label="Entwicklung", style=nextcord.ButtonStyle.blurple, emoji="☎️", row=2)
 
         # roles
         community_role = nextcord.utils.get(guild.roles, id=1352254181280583715)

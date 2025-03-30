@@ -2,6 +2,8 @@ import nextcord
 from nextcord.ext import commands
 import os
 import asyncio
+import nacl  # PyNaCl wird benötigt für Voice-Funktionalität
+
 
 class VoicePlayer(commands.Cog):
     def __init__(self, bot):
@@ -21,7 +23,8 @@ class VoicePlayer(commands.Cog):
         # Überprüfen, ob die Datei existiert
         audio_path = f"./audio/{audio_file}"
         if not os.path.exists(audio_path):
-            await interaction.response.send_message(f"Die Datei `{audio_file}` existiert nicht im Ordner `audio`.", ephemeral=True)
+            await interaction.response.send_message(f"Die Datei `{audio_file}` existiert nicht im Ordner `audio`.",
+                                                    ephemeral=True)
             return
 
         # Bot tritt dem Voice-Channel bei
@@ -31,20 +34,18 @@ class VoicePlayer(commands.Cog):
         else:
             voice_client = await voice_channel.connect()
 
-        # Audiodatei abspielen
+        # Audiodatei abspielen mit PyNaCl
         try:
-            # Verwende FFmpeg zur Audiowiedergabe
-            voice_client.play(nextcord.FFmpegPCMAudio(audio_path), after=lambda e: print(f"Audio-Fehler: {e}") if e else None)
-            await interaction.response.send_message(f"Spiele die Datei `{audio_file}` in `{voice_channel.name}` ab.", ephemeral=False)
-            
+            audio_source = nextcord.PCMAudio(audio_path)  # PyNaCl-basierte Wiedergabe
+            voice_client.play(audio_source, after=lambda e: print(f"Audio-Fehler: {e}") if e else None)
+            await interaction.response.send_message(f"Spiele die Datei `{audio_file}` in `{voice_channel.name}` ab.",
+                                                    ephemeral=False)
+
             # Warte, bis die Wiedergabe abgeschlossen ist
             while voice_client.is_playing():
                 await asyncio.sleep(1)
         except Exception as e:
             await interaction.followup.send(f"Fehler beim Abspielen der Datei: {e}", ephemeral=True)
-        finally:
-            # Bot verlässt den Voice-Channel nach dem Abspielen
-            await voice_client.disconnect()
 
     @nextcord.slash_command(name="leave", description="Der Bot verlässt den Voice-Channel.")
     async def leave(self, interaction: nextcord.Interaction):
@@ -69,6 +70,7 @@ class VoicePlayer(commands.Cog):
         else:
             file_list = "\n".join(audio_files)
             await interaction.response.send_message(f"Verfügbare Audiodateien:\n```\n{file_list}\n```", ephemeral=True)
+
 
 def setup(bot):
     bot.add_cog(VoicePlayer(bot))
