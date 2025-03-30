@@ -31,14 +31,12 @@ class TicketDropdownView(nextcord.ui.View):
         self.guild = guild  # Guild-Instanz speichern
 
     async def create_ticket(self, interaction: nextcord.Interaction, ticket_type: str):
-        role_1 = nextcord.utils.get(self.guild.roles, id=1277691336304361613)  # Owner
-        role_2 = nextcord.utils.get(self.guild.roles, id=1298996082776473670)  # Admin
-        role_3 = nextcord.utils.get(self.guild.roles, id=1315259542753382400)  # Team-Leitung
-        role_4 = nextcord.utils.get(self.guild.roles, id=1315348899728330782)  # stv. Team-Leitung
-        role_5 = nextcord.utils.get(self.guild.roles, id=1277691781378609162)  # Mod
-        role_6 = nextcord.utils.get(self.guild.roles, id=1296962892607787071)  # Sup
+        role_1 = nextcord.utils.get(self.guild.roles, id=1352254181305618495)  # Owner
+        role_2 = nextcord.utils.get(self.guild.roles, id=1352254181297094692)  # Admin
+        role_3 = nextcord.utils.get(self.guild.roles, id=1352254181297094693)  # Mod team
+        #undendlich erweiterbar
 
-        if not all([role_1, role_2, role_3, role_4, role_5, role_6]):
+        if not all([role_1, role_2, role_3,]):
             return
 
         # Kategorien prüfen oder erstellen
@@ -57,10 +55,8 @@ class TicketDropdownView(nextcord.ui.View):
             interaction.user: nextcord.PermissionOverwrite(view_channel=True),
             role_1: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Owner
             role_2: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Admin
-            role_3: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Team-Leitung
-            role_4: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # stv. Team-Leitung
-            role_5: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Mod
-            role_6: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Sup
+            role_3: nextcord.PermissionOverwrite(view_channel=True, send_messages=True),  # Mod Team
+            #unendlich erweitrerbar
         }
 
         # Ticket-Channel erstellen
