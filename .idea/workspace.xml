@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e227d100-e4a0-45f0-bdf7-47551a14a824" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Terra Nova.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Leave.py" beforeDir="false" afterPath="$PROJECT_DIR$/Leave.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/temp-voice.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp-voice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ticket_cog.py" beforeDir="false" afterPath="$PROJECT_DIR$/ticket_cog.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ticket_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/ticket_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/welcome-cog.py" beforeDir="false" afterPath="$PROJECT_DIR$/welcome-cog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/welcome_messages.json" beforeDir="false" afterPath="$PROJECT_DIR$/welcome_messages.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ticket_logs/_jannikpy__1355999101552164984.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ticket_logs/ticket_message_id.json" beforeDir="false" afterPath="$PROJECT_DIR$/ticket_logs/ticket_message_id.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -79,6 +79,5 @@ class LeaveCog(commands.Cog):
         await interaction.response.send_message(f"**Leave Logs:**\n{logs_message}", ephemeral=True)
 
 
-def setup(bot):
-    if bot.get_cog("LeaveCog") is None:
-        bot.add_cog(LeaveCog(bot))
+def setup(client):
+    client.add_cog(LeaveCog(client))

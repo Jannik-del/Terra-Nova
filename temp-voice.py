@@ -142,5 +142,4 @@ class TempVoice(commands.Cog):
                 break
 
 def setup(client):
-    if client.get_cog("TempVoice") is None:
-        client.add_cog(TempVoice(client))
+    client.add_cog(TempVoice(client))
