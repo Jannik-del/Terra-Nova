@@ -1,6 +1,6 @@
 ***EN/en***
 
-This is the Dc Bot To **[Projekt Terra Nova](https://discord.gg/hDPytMzMyG)**
+This is the Dc Bot To **[Projekt Terra Nova](not_now)**
 
 And yes, I admit some of this code is maybe with ChatGPT, but most of the work I did.
 
@@ -18,7 +18,7 @@ This entire bot runs locally, so there's no need for something like a database o
 
 ***DE/de***
 
-Dies ist der Discord-Bot Zu **[Projekt Terra Nova](https://discord.gg/hDPytMzMyG)**
+Dies ist der Discord-Bot Zu **[Projekt Terra Nova](Noch_Nicht)**
 
 Und ja, ich gebe zu, dass ein Teil dieses Codes vielleicht mit ChatGPT erstellt wurde, aber die meiste Arbeit habe ich selbst gemacht.
 
