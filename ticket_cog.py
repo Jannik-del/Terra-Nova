@@ -15,8 +15,9 @@ class TicketDropdown(nextcord.ui.Select):
         options = [
             nextcord.SelectOption(label="Allgemeines-Support-Ticket",
                                   description="Erstelle ein allgemeines Support-Ticket."),
-            nextcord.SelectOption(label="Bug-Report-Ticket", description="Erstelle ein Ticket für einen Bug-Report."),
-            nextcord.SelectOption(label="Bewerbung", description="Erstelle ein Bewerbung-Ticket."),
+            nextcord.SelectOption(label="Bug-Report-Ticket", description="Erstelle ein Ticket um einen Bug-Report."),
+            nextcord.SelectOption(label="Bewerbung", description="Erstelle ein Bewerbungs-Ticket."),
+            nextcord.SelectOption(label="Eigen-Werbung", description="Erstelle ein Ticket bei Verdacht auf Eigen-Werbung."),
         ]
         super().__init__(placeholder="Wähle die Art des Tickets aus...", min_values=1, max_values=1, options=options)
 
@@ -25,8 +26,6 @@ class TicketDropdown(nextcord.ui.Select):
         view = self.view
         if isinstance(view, TicketDropdownView):
             await view.create_ticket(interaction, ticket_type)
-
-            # Nach der Interaktion das Dropdown zurücksetzen
             self.view.clear_items()
             self.view.add_item(TicketDropdown())
             await interaction.message.edit(view=self.view)
@@ -35,14 +34,14 @@ class TicketDropdown(nextcord.ui.Select):
 class TicketDropdownView(nextcord.ui.View):
     def __init__(self, guild, old_message=None):
         super().__init__(timeout=None)
-        self.guild = guild  # Guild-Instanz speichern
+        self.guild = guild
         self.old_message = old_message
         self.add_item(TicketDropdown())
 
     async def create_ticket(self, interaction: nextcord.Interaction, ticket_type: str):
-        role_1 = nextcord.utils.get(self.guild.roles, id=1352254181305618495)  # Owner
-        role_2 = nextcord.utils.get(self.guild.roles, id=1352254181297094692)  # Admin
-        role_3 = nextcord.utils.get(self.guild.roles, id=1352254181297094693)  # Mod team
+        role_1 = nextcord.utils.get(self.guild.roles, id=1352254181305618495)
+        role_2 = nextcord.utils.get(self.guild.roles, id=1352254181297094692)
+        role_3 = nextcord.utils.get(self.guild.roles, id=1352254181297094693)
 
         if not all([role_1, role_2, role_3]):
             return
@@ -50,7 +49,15 @@ class TicketDropdownView(nextcord.ui.View):
         category_mapping = {
             "bewerbung": "Bewerbungen",
             "bug-report-ticket": "BugReports",
-            "allgemeines-support-ticket": "Tickets"
+            "allgemeines-support-ticket": "Tickets",
+            "eigen-werbung": "EigenWerbung"
+        }
+
+        welcome_messages = {
+            "bewerbung": "Willkommen im Bewerbungs-Ticket. Bitte fülle das Bewerbungsformular aus.",
+            "bug-report-ticket": "Willkommen im Bug-Report-Ticket. Bitte beschreibe den Bug so genau wie möglich.",
+            "allgemeines-support-ticket": "Willkommen im Support. Wie können wir dir helfen?",
+            "eigen-werbung": "Willkommen im Ticket für verdacht auf Eigen-Werbung. Bitte gib Details zu deinem Verdacht an."
         }
 
         category_name = category_mapping.get(ticket_type.lower(), "Tickets")
@@ -73,17 +80,16 @@ class TicketDropdownView(nextcord.ui.View):
             return
 
         try:
-            await interaction.response.send_message(f"Dein {ticket_type}-Ticket wurde erstellt: {channel.mention}.",
-                                                    ephemeral=True)
+            await interaction.response.send_message(f"Dein {ticket_type}-Ticket wurde erstellt: {channel.mention}.", ephemeral=True)
         except Exception:
             return
 
         embed = nextcord.Embed(
             title=f"Willkommen im {ticket_type} Support.",
-            description="Das Team wurde informiert. Bitte teile uns dein Anliegen mit.",
+            description=welcome_messages.get(ticket_type.lower(), "Bitte teile uns dein Anliegen mit."),
             color=nextcord.Color.blue()
         )
-        embed.set_footer(text="hehehehheh.")
+        embed.set_footer(text="Das Team wird sich bald melden.")
 
         try:
             await channel.send(embed=embed, view=CloseButtons(channel))
@@ -109,9 +115,8 @@ class CloseButtons(nextcord.ui.View):
 
     @nextcord.ui.button(label="Ticket schließen", style=nextcord.ButtonStyle.danger, custom_id="close_ticket")
     async def close_ticket(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        # Versuche, die Ticket-Logs zu speichern
         try:
-            ticket_type = self.channel.name.split("-")[-2]  # Extrahiert den Ticket-Typ aus dem Kanalnamen
+            ticket_type = self.channel.name.split("-")[-2]
             await save_ticket_logs(self.channel, ticket_type)
         except Exception:
             await interaction.response.send_message(
@@ -119,7 +124,6 @@ class CloseButtons(nextcord.ui.View):
             )
             return
 
-        # Embed Nachricht, dass das Ticket bald geschlossen wird
         embed = nextcord.Embed(
             title="Ticket Schließen",
             description="Das Ticket wird in wenigen Sekunden geschlossen.",
@@ -128,8 +132,8 @@ class CloseButtons(nextcord.ui.View):
 
         try:
             await interaction.response.send_message(embed=embed, ephemeral=False)
-            await asyncio.sleep(2)  # Warte kurz, bevor das Ticket gelöscht wird
-            await self.channel.delete()  # Lösche das Ticket
+            await asyncio.sleep(2)
+            await self.channel.delete()
         except Exception:
             await interaction.response.send_message(
                 "Fehler beim Schließen des Tickets. Bitte versuche es später noch einmal.", ephemeral=True
@@ -157,7 +161,7 @@ class TicketBot(commands.Cog):
                     if message_id:
                         old_message = await channel.fetch_message(message_id)
                         embed = nextcord.Embed(
-                            title="Terra Nova suppe",
+                            title="Terra Nova Support",
                             description="Bitte wähle den Typ des Tickets aus, das du erstellen möchtest.",
                             color=nextcord.Color.blue(),
                         )
@@ -167,7 +171,7 @@ class TicketBot(commands.Cog):
                     pass
 
             embed = nextcord.Embed(
-                title="Terra Nova suppe",
+                title="Terra Nova Support",
                 description="Bitte wähle den Typ des Tickets aus, das du erstellen möchtest.",
                 color=nextcord.Color.blue(),
             )

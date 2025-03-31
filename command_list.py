@@ -1,5 +1,6 @@
 import nextcord
 from nextcord.ext import commands
+import datetime
 import config
 
 
@@ -58,6 +59,67 @@ class CommandsCog(commands.Cog):
         permissions = interaction.guild.me.guild_permissions  # Richtig eingerückt
         await interaction.response.send_message(f"Meine Berechtigungen:\n{permissions}", ephemeral=True)  # Auch richtig eingerückt
 
+
+class ClearCommands(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+    @nextcord.slash_command(name="clear_chat",
+                            description="Löscht den gesamten Chat oder Nachrichten aus einem bestimmten Zeitraum.")
+    @commands.has_any_role(1352254181305618495, 1352254181305618494)
+    async def clear_chat(self, interaction: nextcord.Interaction, zeitspanne: str = None):
+        def convert_to_seconds(time_str):
+            if time_str is None:
+                return None
+            try:
+                if "h" in time_str:
+                    return int(time_str.replace("h", "")) * 3600
+                elif "min" in time_str:
+                    return int(time_str.replace("min", "")) * 60
+            except ValueError:
+                return None
+
+        seconds = convert_to_seconds(zeitspanne)
+        now = datetime.datetime.utcnow()
+
+        def check(msg):
+            if seconds is None:
+                return True
+            return (now - msg.created_at).total_seconds() <= seconds
+
+        deleted = await interaction.channel.purge(limit=1000, check=check)
+        await interaction.response.send_message(f"Es wurden {len(deleted)} Nachrichten gelöscht.", ephemeral=True)
+
+    @nextcord.slash_command(name="clear_user",
+                            description="Löscht Nachrichten eines bestimmten Nutzers aus einem definierten Zeitraum.")
+    @commands.has_any_role(1352254181305618495, 1352254181305618494)
+    async def clear_user(self, interaction: nextcord.Interaction, user: nextcord.Member, zeitspanne: str = None):
+        def convert_to_seconds(time_str):
+            if time_str is None:
+                return None
+            try:
+                if "h" in time_str:
+                    return int(time_str.replace("h", "")) * 3600
+                elif "min" in time_str:
+                    return int(time_str.replace("min", "")) * 60
+            except ValueError:
+                return None
+
+        seconds = convert_to_seconds(zeitspanne)
+        now = datetime.datetime.utcnow()
+
+        def check(msg):
+            if msg.author != user:
+                return False
+            if seconds is None:
+                return True
+            return (now - msg.created_at).total_seconds() <= seconds
+
+        deleted = await interaction.channel.purge(limit=1000, check=check)
+        await interaction.response.send_message(f"Es wurden {len(deleted)} Nachrichten von {user.mention} gelöscht.",
+                                                ephemeral=True)
+
 def setup(client):
     client.add_cog(CommandsCog(client))
     client.add_cog(ServerInfo(client))
+    client.add_cog(ClearCommands(client))

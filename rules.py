@@ -9,7 +9,7 @@ class Regeln(commands.Cog):
     @commands.has_any_role(1352254181305618495)
     async def regeln(self, ctx):
         embed = nextcord.Embed(
-            title="📜 TCT Server Regeln",
+            title="📜 Terra Nova Server Regeln",
             description="Bitte halte dich an die folgenden Regeln, um eine angenehme Community zu gewährleisten.",
             color=nextcord.Color.red(),
             timestamp=nextcord.utils.utcnow()
@@ -20,10 +20,8 @@ class Regeln(commands.Cog):
             name="**1️⃣ Verhaltensregeln (Teil 1):**",
             value=(
                 "**1.1:** Keine Spam-Nachrichten oder unangemessenen Inhalte erstellen oder teilen.\n"
-                "**1.2:** Externe Soundboards oder Voicechanger sind verboten. Nutzung führt zu einem permanenten Ban.\n"
-                "**1.3:** Wir sind nicht für private Streitigkeiten zuständig. Klärung über Support ist nicht erlaubt.\n"
-                "**1.4:** Zweitaccounts sind verboten und werden bestraft.\n"
-                "**1.5:** Channel-Hopping (ständiges Wechseln von Voice-Channels) ist untersagt.\n"
+                "**1.2:** Wir sind nicht für private Streitigkeiten zuständig. Klärung über Support ist nicht erlaubt.\n"
+                "**1.3:** Zweitaccounts sind den verboten wenn man die zum umgehen eienr bestrafung nutzt.\n"
             ),
             inline=False
         )
@@ -31,10 +29,9 @@ class Regeln(commands.Cog):
         embed.add_field(
             name="**1️⃣ Verhaltensregeln (Teil 2):**",
             value=(
-                "**1.6:** Self-Bots sind verboten und führen zu einem permanenten Ban. Dies verstößt gegen die Discord TOS.\n"
-                "**1.7:** Wähle einen angemessenen und nicht beleidigenden Server-Nickname.\n"
-                "**1.8:** NSFW-Inhalte sind verboten und führen zu Konsequenzen.\n"
-                "**1.9:** Unangemessene Avatare oder Profilbilder sind nicht erlaubt und führen zu einem permanenten Ban."
+                "**1.4:** Wähle einen angemessenen und nicht beleidigenden Server-Nickname.\n"
+                "**1.5:** NSFW-Inhalte sind verboten und führen zu Konsequenzen.\n"
+                "**1.6:** Unangemessene Avatare oder Profilbilder sind nicht erlaubt und führen zu einem permanenten Ban (außer nach absprache)."
             ),
             inline=False
         )
@@ -43,13 +40,12 @@ class Regeln(commands.Cog):
         embed.add_field(
             name="**2️⃣ Verwendung von Sprache:**",
             value=(
-                "**2.1:** Achte auf korrekte Rechtschreibung.\n"
+                "**2.1:** Spammen von Emojis wird bestraft.\n"
                 "**2.2:** Keine Beleidigungen oder unerwünschte Wörter.\n"
                 "**2.3:** Keine Bedrohungen oder Beleidigungen gegen andere Benutzer.\n"
                 "**2.4:** Rassistische, sexistische oder diskriminierende Äußerungen sind verboten.\n"
                 "**2.5:** Übermäßiger Gebrauch von Großbuchstaben (Capslock) ist nicht erlaubt.\n"
-                "**2.6:** Spammen von Emojis wird bestraft.\n"
-                "**2.7:** Diese Regeln gelten auch in Voice-Channels."
+                "**2.6:** Diese Regeln gelten auch in Voice-Channels."
             ),
             inline=False
         )
@@ -60,7 +56,7 @@ class Regeln(commands.Cog):
             value=(
                 "**3.1:** Keine Weitergabe persönlicher Informationen anderer Nutzer ohne Zustimmung.\n"
                 "**3.2:** Teile keine Nachrichten, die gegen Datenschutzgesetze verstoßen.\n"
-                "**3.3:** Aufzeichnungen von Gesprächen ohne Zustimmung sind verboten und führen zu einem permanenten Bann."
+                "**3.3:** Aufzeichnungen von Gesprächen ohne Zustimmung sind verboten und führen zu einem permanenten Bann (außer man hat einen guten grund dafür denn wird es weiter geklärt)."
             ),
             inline=False
         )
@@ -70,8 +66,8 @@ class Regeln(commands.Cog):
             name="**4️⃣ Inhalte der Nachrichten:**",
             value=(
                 "**4.1:** Keine illegalen Inhalte oder Falschinformationen.\n"
-                "**4.2:** Politische, religiöse oder sexuelle Themen sind nicht erlaubt.\n"
-                "**4.3:** Fremdwerbung ist verboten. Pinge Teammitglieder bei Verstößen."
+                "**4.2:** Politische, religiöse oder sexuelle Themen sind nicht erwünscht.\n"
+                "**4.3:** Fremdwerbung ist verboten. Öffne ein Ticket bei Verstößen."
             ),
             inline=False
         )
@@ -82,14 +78,7 @@ class Regeln(commands.Cog):
             value=(
                 "**5.1:** Moderatoren müssen ihre Handlungen nicht rechtfertigen. Häufiges Nachfragen kann Strafen verlängern.\n"
                 "**5.2:** Missbrauch des Supports durch Falschmeldungen oder Belästigungen ist verboten.\n"
-                "**5.3:** Kontaktaufnahme mit Teammitgliedern per DM ist nur im Notfall erlaubt."
-            ),
-            inline=False
-        )
-
-        embed.add_field(
-            name="**5️⃣ Verhalten gegenüber Teammitgliedern (Teil 2):**",
-            value=(
+                "**5.3:** Kontaktaufnahme mit Teammitgliedern per DM ist nur im Notfall erlaubt.\n"
                 "**5.4:** Unnötiges Pingen von Teammitgliedern ist verboten und wird bestraft."
             ),
             inline=False
@@ -118,7 +107,7 @@ class Regeln(commands.Cog):
         embed.set_footer(text="Diese Regeln können ohne Ankündigung geändert werden.")
         embed.add_field(
             name="**Links:**",
-            value=" <#1311821904914419883> | [Discord TOS](https://discord.com/terms)",
+            value=" <#1352254181741957125> | [Discord TOS](https://discord.com/terms)",
             inline=False
         )
 
